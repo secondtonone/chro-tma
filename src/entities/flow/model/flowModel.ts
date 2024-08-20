@@ -3,7 +3,7 @@ import { createGate, useGate, useUnit } from 'effector-react';
 
 import type { Stage } from '../types';
 
-const START_STAGE = 'form';
+const START_STAGE = /* 'form' */ 'currency';
 
 export const FlowGate = createGate();
 

@@ -49,6 +49,7 @@
     "import/extensions": ["error", "never", { "svg": "always", "css": "always" }],
     "import/prefer-default-export": "off",
     "no-shadow": "off",
+    "react/prop-types": "off",
     "prettier/prettier": [
       "error",
       {

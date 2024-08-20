@@ -13,7 +13,7 @@ export const QueryGate = createGate();
 // indexes of cards in hand
 export const $query = createStore<IQuery>({
   countryFrom: 'Россия',
-  countryTo: 'Узбекистан',
+  countryTo: '',
   currency: 'RUB',
   amount: 0,
 });

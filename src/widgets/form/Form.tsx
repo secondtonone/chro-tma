@@ -11,25 +11,26 @@ export default function Form() {
     querySelectors.useQuery();
   return (
     <form
-      className="bg-white flex flex-col justify-between h-full"
+      className="flex h-full flex-col justify-between bg-white"
       onSubmit={(e) => {
         e.preventDefault();
         flowEvents.setStage('suggestions');
-      }}>
-      <div className="w-full p-6 flex-col justify-start items-center gap-10 flex">
-        <div className="px-2 flex-col justify-center items-center gap-2 flex">
-          <div className="px-5 py-[13px] justify-center items-center inline-flex">
+      }}
+    >
+      <div className="flex w-full flex-col items-center justify-start gap-10 p-6">
+        <div className="flex flex-col items-center justify-center gap-2 px-2">
+          <div className="inline-flex items-center justify-center px-5 py-[13px]">
             <div className="text-7xl font-semibold leading-tight tracking-tight">
               💸
             </div>
           </div>
 
-          <div className="text-center text-[#101112] text-[28px] font-semibold leading-tight">
+          <div className="text-center text-[28px] font-semibold leading-tight text-[#101112]">
             Подберите лучшие условия перевода
           </div>
         </div>
 
-        <div className="flex-col justify-center items-center gap-4 flex">
+        <div className="flex flex-col items-center justify-center gap-4">
           <Select
             prefixEl={<RussiaIcon />}
             label="Я отправляю из"
@@ -39,14 +40,13 @@ export default function Form() {
             onClick={() => flowEvents.setStage('countryFrom')}
           />
           <Select
-            prefixEl={<RussiaIcon />}
             label="Страна получателя"
             value={countryTo}
             className="w-full"
             readOnly
             onClick={() => flowEvents.setStage('countryTo')}
           />
-          <div className="w-full gap-2 grid grid-cols-12">
+          <div className="grid w-full grid-cols-12 gap-2">
             <div className="col-span-8">
               <Input
                 label="Сумма перевода"
@@ -69,7 +69,7 @@ export default function Form() {
         </div>
       </div>
 
-      <div className="w-full h-fit bg-white border-t border-[#3c3c43]/20 backdrop-blur-[180px] px-2 py-4">
+      <div className="h-fit w-full border-t border-[#3c3c43]/20 bg-white px-2 py-4 backdrop-blur-[180px]">
         <Button type="submit">Подобрать</Button>
       </div>
     </form>
