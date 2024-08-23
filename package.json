@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "npm type-check && vite build",
-    "dev:tg": "vite",
-    "dev": "IS_BROWSER=true vite",
+    "dev": "vite",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext .ts --ext .tsx",
     "lint:fix": "npm lint --fix",
@@ -16,6 +15,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
+    "@farfetched/core": "^0.12.6",
     "@react-spring/web": "^9.7.3",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/typography": "^0.5.4",
@@ -32,6 +32,7 @@
     "@use-gesture/react": "^10.3.0",
     "@vitejs/plugin-legacy": "^5.4.1",
     "@vitejs/plugin-react": "^4.3.1",
+    "@withease/contracts": "^1.1.0",
     "autoprefixer": "^10.4.19",
     "axios": "^0.27.2",
     "class-variance-authority": "^0.7.0",
@@ -51,6 +52,7 @@
     "react-router-dom": "^6.3.0",
     "react-toastify": "^10.0.5",
     "react-use": "^17.4.0",
+    "react-world-flags": "^1.6.0",
     "rimraf": "^5.0.7",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^3.4.4",
@@ -62,6 +64,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@types/react-world-flags": "^1.4.5",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "dotenv": "^16.4.5",
@@ -80,6 +83,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-testing-library": "^5.6.0",
     "prettier": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.5"
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "vite-plugin-babel": "^1.2.0"
   }
 }

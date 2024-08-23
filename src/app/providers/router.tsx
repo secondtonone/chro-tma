@@ -19,7 +19,7 @@ const router = createBrowserRouter([
             <MainPage />
           </Suspense>
         ),
-      }
+      },
     ],
   },
 ]);

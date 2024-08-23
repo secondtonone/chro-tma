@@ -16,17 +16,17 @@ export function SuggestionCard({
   onClick,
 }: ISuggestionCardProps) {
   return (
-    <div className="flex flex-col items-start justify-center gap-3 rounded-2xl bg-zinc-100 p-4">
+    <div className="flex flex-col items-start justify-center gap-3 rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-900">
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-3xl bg-[#e0dfe2]">
           <img className="h-8 w-8" src={img} />
         </div>
 
         <div className="flex flex-col items-start justify-center gap-0.5">
-          <div className="text-sm font-medium leading-[18px] text-[#101112]">
+          <div className="text-sm font-medium leading-[18px] text-[#101112] dark:text-white">
             {title}
           </div>
-          <div className="text-xs font-medium leading-[13px] text-[#3c3c43]/60">
+          <div className="text-xs font-medium leading-[13px] text-[#3c3c43]/60 dark:text-white/60">
             {description}
           </div>
         </div>
@@ -34,16 +34,16 @@ export function SuggestionCard({
 
       <div className="flex w-full flex-row items-center justify-between pt-2">
         <div className="flex-col items-start justify-center gap-0.5">
-          <div className="text-xs font-medium leading-[13px] text-[#3c3c43]/60">
+          <div className="text-xs font-medium leading-[13px] text-[#3c3c43]/60 dark:text-white/60">
             Срок зачисления
           </div>
-          <div className="text-sm font-medium leading-[18px] text-[#101112]">
+          <div className="text-sm font-medium leading-[18px] text-[#101112] dark:text-white">
             {period}
           </div>
         </div>
 
         <div className="flex flex-col items-end justify-center gap-0.5 pr-[5px]">
-          <div className="text-right text-xs font-medium leading-[13px] text-[#3c3c43]/60">
+          <div className="text-right text-xs font-medium leading-[13px] text-[#3c3c43]/60 dark:text-white/60">
             К оплате
           </div>
           <div className="text-right text-sm font-medium leading-[18px] text-[#009be0]">

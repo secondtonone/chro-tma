@@ -25,7 +25,5 @@ export default function RootLayout() {
     miniApp?.setBgColor('#000');
   }, [miniApp, mainColor]); */
 
-  return (
-    <Outlet />
-  );
+  return <Outlet />;
 }

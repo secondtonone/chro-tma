@@ -7,4 +7,5 @@ export * from './Modal';
 export * from './Select';
 export * from './SuggestionCard';
 export * from './theme';
+export * from './Title';
 export * from './Tooltip';

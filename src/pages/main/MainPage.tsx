@@ -1,7 +1,7 @@
 import { CSSProperties, useEffect } from 'react';
 
 import { selectors as flowSelectors } from '@/entities/flow';
-
+import { useTheme } from '@/shared';
 import { CountryFrom, CountryTo, Currency, Form, Suggestions } from '@/widgets';
 import {
   a,
@@ -13,30 +13,30 @@ import { useMiniApp } from '@telegram-apps/sdk-react';
 
 const stages = {
   form: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
-    <a.div style={{ ...style }} className="w-full h-full">
+    <a.div style={{ ...style }} className="h-full w-full">
       <Form />
     </a.div>
   ),
   countryFrom: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
-    <a.div style={{ ...style }}>
+    <a.div style={{ ...style }} className="h-full w-full">
       <CountryFrom />
     </a.div>
   ),
   countryTo: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
-    <a.div style={{ ...style }}>
+    <a.div style={{ ...style }} className="h-full w-full">
       <CountryTo />
     </a.div>
   ),
   currency: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
-    <a.div style={{ ...style }}>
+    <a.div style={{ ...style }} className="h-full w-full">
       <Currency />
     </a.div>
   ),
   suggestions: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
-    <a.div style={{ ...style }}>
+    <a.div style={{ ...style }} className="h-full w-full">
       <Suggestions />
     </a.div>
-  )
+  ),
 } as const;
 
 export default function MainPage() {
@@ -45,9 +45,9 @@ export default function MainPage() {
   const transRef = useSpringRef();
   const transitions = useTransition(stage, {
     ref: transRef,
-    from: { translateX: 100, opacity: 0 },
-    enter: { translateX: 0, opacity: 1 },
-    leave: { translateX: -100, opacity: 0 },
+    from: { translateY: -200, opacity: 0 },
+    enter: { translateY: 0, opacity: 1 },
+    leave: { translateY: 100, opacity: 0 },
   });
 
   const miniApp = useMiniApp();
@@ -58,19 +58,19 @@ export default function MainPage() {
   }, [stage]);
 
   useEffect(() => {
-    miniApp.ready()
+    miniApp.ready();
   }, [miniApp]);
 
+  useTheme();
+
   return (
-    <>
-      <a.div
-        className="relative h-screen w-screen"
-      >
+    <div className="flex items-center justify-center">
+      <a.div className="relative h-screen w-screen bg-background sm:w-[400px]">
         {transitions((style, stage) => {
           const Page = stages[stage];
           return <Page style={style} />;
         })}
       </a.div>
-    </>
+    </div>
   );
 }

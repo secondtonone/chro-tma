@@ -1,19 +1,41 @@
+import { selectors as currencySelectors } from '@/entities/currency';
 import { events as flowEvents } from '@/entities/flow';
-import { List } from '@/shared';
-
-import { currencies } from './currencies';
+import {
+  events as queryEvents,
+  selectors as querySelectors,
+} from '@/entities/query';
+import { List, Title } from '@/shared';
 
 export default function Currency() {
-  return (
-    <div className="flex h-full flex-col justify-between bg-white">
-      <div className="fixed top-0 z-50 w-full bg-white py-6 text-center text-[28px] font-semibold leading-tight text-[#101112] shadow-2xl shadow-white">
-        Валюта перевода
+  const { data } = currencySelectors.useCurrenciesQuery();
+  const items = data.map(({ id, name, abbreviation }) => ({
+    id,
+    label: (
+      <div>
+        <div className="text-base font-medium leading-[18px] text-[#101112] dark:text-white">
+          {name}
+        </div>
+        <div className="text-xs font-medium uppercase leading-[13px] tracking-tight text-[#3c3c43]/60 dark:text-white/40">
+          {abbreviation.toLocaleUpperCase()}
+        </div>
       </div>
+    ),
+    icon: <img src={`./icons/${abbreviation.toLowerCase()}.svg`} />,
+  }));
+
+  const { optional_from_currency_id: currency } = querySelectors.useQueryIds();
+
+  return (
+    <div className="flex h-full flex-col justify-between">
+      <Title>Валюта перевода</Title>
       <div className="mt-[84px] h-auto">
         <List
-          items={currencies}
-          onClick={() => flowEvents.setStage('form')}
-          current="usd"
+          items={items}
+          onClick={(id) => {
+            queryEvents.changeCurrency(id);
+            flowEvents.setStage('form');
+          }}
+          current={currency}
         />
       </div>
     </div>

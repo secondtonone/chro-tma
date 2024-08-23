@@ -14,7 +14,7 @@ export const Button: FC<IButtonProps> = ({
   return (
     <button
       type="button"
-      className={`w-full px-6 py-4 bg-[#009be0] rounded-xl text-center text-white text-base font-semibold leading-tight ${className}`}
+      className={`w-full rounded-xl bg-[#009be0] px-6 py-4 text-center text-base font-semibold leading-tight text-white ${className}`}
       {...props}
     >
       {children}

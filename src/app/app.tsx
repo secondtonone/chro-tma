@@ -10,9 +10,7 @@ init();
 
 const App = (): JSX.Element => {
   return (
-    <SDKProvider
-      acceptCustomStyles
-      debug>
+    <SDKProvider acceptCustomStyles debug>
       <Theme>
         <RouterProvider router={router} />
       </Theme>

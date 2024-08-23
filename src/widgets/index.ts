@@ -4,10 +4,4 @@ import Currency from './currency';
 import Form from './form';
 import Suggestions from './suggestions';
 
-export {
-  CountryFrom,
-  CountryTo,
-  Currency,
-  Form,
-  Suggestions
-};
+export { CountryFrom, CountryTo, Currency, Form, Suggestions };

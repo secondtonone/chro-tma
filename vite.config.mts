@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
   return {
     define: {
       'process.env.IS_BROWSER': env.IS_BROWSER,
+      'process.env.API_URL': JSON.stringify(env.API_URL),
     },
     plugins: [
       legacy({

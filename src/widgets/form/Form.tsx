@@ -1,19 +1,30 @@
+import { gates as countryGates } from '@/entities/country';
+import { gates as currencyGates } from '@/entities/currency';
 import { events as flowEvents } from '@/entities/flow';
 import {
   events as queryEvents,
   selectors as querySelectors,
 } from '@/entities/query';
 import { Button, Input, Select } from '@/shared';
-import { RussiaIcon } from '@/shared/ui/RussiaIcon';
+import FlagIcon from '@/shared/ui/FlagIcon';
 
 export default function Form() {
-  const { amount, countryFrom, countryTo, currency } =
-    querySelectors.useQuery();
+  const {
+    optional_amount: amount,
+    countryFrom,
+    countryTo,
+    currency,
+  } = querySelectors.useQuery();
+
+  countryGates.useCountryGate();
+  currencyGates.useCurrencyGate();
+
   return (
     <form
-      className="flex h-full flex-col justify-between bg-white"
+      className="flex h-full flex-col justify-between"
       onSubmit={(e) => {
         e.preventDefault();
+        queryEvents.submitData();
         flowEvents.setStage('suggestions');
       }}
     >
@@ -25,23 +36,32 @@ export default function Form() {
             </div>
           </div>
 
-          <div className="text-center text-[28px] font-semibold leading-tight text-[#101112]">
+          <div className="text-center text-[28px] font-semibold leading-tight text-[#101112] dark:text-white">
             Подберите лучшие условия перевода
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-4">
           <Select
-            prefixEl={<RussiaIcon />}
+            prefixEl={
+              <div className="h-8 w-8 overflow-hidden rounded-full">
+                <FlagIcon code={countryFrom.abbreviation} />
+              </div>
+            }
             label="Я отправляю из"
-            value={countryFrom}
+            value={countryFrom.name}
             className="w-full"
             readOnly
             onClick={() => flowEvents.setStage('countryFrom')}
           />
           <Select
+            prefixEl={
+              <div className="h-8 w-8 overflow-hidden rounded-full">
+                <FlagIcon code={countryTo.abbreviation} />
+              </div>
+            }
             label="Страна получателя"
-            value={countryTo}
+            value={countryTo.name}
             className="w-full"
             readOnly
             onClick={() => flowEvents.setStage('countryTo')}
@@ -53,13 +73,13 @@ export default function Form() {
                 value={amount}
                 className="w-fit"
                 onChange={queryEvents.handleChangeAmount}
-                pattern="[+-]?([0-9]*[.])?[0-9]+"
+                /* pattern="^[0-9.\s]*$" */
               />
             </div>
             <div className="col-span-4">
               <Select
                 label="Валюта"
-                value={currency}
+                value={currency.abbreviation}
                 readOnly
                 className="w-fit"
                 onClick={() => flowEvents.setStage('currency')}
@@ -69,7 +89,7 @@ export default function Form() {
         </div>
       </div>
 
-      <div className="h-fit w-full border-t border-[#3c3c43]/20 bg-white px-2 py-4 backdrop-blur-[180px]">
+      <div className="h-fit w-full border-t border-[#3c3c43]/20 bg-white px-2 py-4 backdrop-blur-[180px] dark:border-white/20 dark:bg-black">
         <Button type="submit">Подобрать</Button>
       </div>
     </form>
