@@ -24,7 +24,7 @@ export const List: React.FC<IListProps> = ({
       {items.map(({ label, icon, id }) => (
         <li
           key={id}
-          className={`${icon ? 'pl-[56px]' : ''} relative w-full cursor-pointer rounded-2xl border-none bg-zinc-100 p-4 text-base font-medium leading-[32px] text-[#101112] dark:bg-zinc-900 dark:text-white`}
+          className={`${icon ? 'pl-[56px]' : ''} relative w-full cursor-pointer rounded-2xl border-none bg-zinc-100 p-4 text-base font-medium leading-[32px] text-[#101112] hover:bg-zinc-200 dark:bg-zinc-900 dark:text-white`}
           onClick={() => {
             if (typeof onClick === 'function') onClick(id);
           }}

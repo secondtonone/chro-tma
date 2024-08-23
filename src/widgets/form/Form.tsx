@@ -5,6 +5,7 @@ import {
   events as queryEvents,
   selectors as querySelectors,
 } from '@/entities/query';
+import { selectors as rulesSelectors } from '@/entities/transfer-rules';
 import { Button, Input, Select } from '@/shared';
 import FlagIcon from '@/shared/ui/FlagIcon';
 
@@ -15,6 +16,8 @@ export default function Form() {
     countryTo,
     currency,
   } = querySelectors.useQuery();
+
+  const isPending = rulesSelectors.useTransferPending();
 
   countryGates.useCountryGate();
   currencyGates.useCurrencyGate();
@@ -44,25 +47,31 @@ export default function Form() {
         <div className="flex flex-col items-center justify-center gap-4">
           <Select
             prefixEl={
-              <div className="h-8 w-8 overflow-hidden rounded-full">
-                <FlagIcon code={countryFrom.abbreviation} />
-              </div>
+              countryFrom.abbreviation ? (
+                <div className="h-8 w-8 overflow-hidden rounded-full">
+                  <FlagIcon code={countryFrom.abbreviation} />
+                </div>
+              ) : null
             }
             label="Я отправляю из"
             value={countryFrom.name}
             className="w-full"
+            placeholder="Выберите страну"
             readOnly
             onClick={() => flowEvents.setStage('countryFrom')}
           />
           <Select
             prefixEl={
-              <div className="h-8 w-8 overflow-hidden rounded-full">
-                <FlagIcon code={countryTo.abbreviation} />
-              </div>
+              countryTo.abbreviation ? (
+                <div className="h-8 w-8 overflow-hidden rounded-full">
+                  <FlagIcon code={countryTo.abbreviation} />
+                </div>
+              ) : null
             }
             label="Страна получателя"
             value={countryTo.name}
             className="w-full"
+            placeholder="Выберите страну"
             readOnly
             onClick={() => flowEvents.setStage('countryTo')}
           />
@@ -73,7 +82,7 @@ export default function Form() {
                 value={amount}
                 className="w-fit"
                 onChange={queryEvents.handleChangeAmount}
-                /* pattern="^[0-9.\s]*$" */
+                pattern="^[0-9.\s]*$"
               />
             </div>
             <div className="col-span-4">
@@ -82,6 +91,7 @@ export default function Form() {
                 value={currency.abbreviation}
                 readOnly
                 className="w-fit"
+                placeholder="Любая"
                 onClick={() => flowEvents.setStage('currency')}
               />
             </div>
@@ -90,7 +100,9 @@ export default function Form() {
       </div>
 
       <div className="h-fit w-full border-t border-[#3c3c43]/20 bg-white px-2 py-4 backdrop-blur-[180px] dark:border-white/20 dark:bg-black">
-        <Button type="submit">Подобрать</Button>
+        <Button type="submit" disabled={isPending}>
+          Подобрать
+        </Button>
       </div>
     </form>
   );

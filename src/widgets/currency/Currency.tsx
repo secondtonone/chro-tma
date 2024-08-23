@@ -4,10 +4,10 @@ import {
   events as queryEvents,
   selectors as querySelectors,
 } from '@/entities/query';
-import { List, Title } from '@/shared';
+import { List, Title, useHandleBack } from '@/shared';
 
 export default function Currency() {
-  const { data } = currencySelectors.useCurrenciesQuery();
+  const { data, error } = currencySelectors.useCurrenciesQuery();
   const items = data.map(({ id, name, abbreviation }) => ({
     id,
     label: (
@@ -25,9 +25,19 @@ export default function Currency() {
 
   const { optional_from_currency_id: currency } = querySelectors.useQueryIds();
 
+  useHandleBack(() => flowEvents.setStage('form'));
+
   return (
     <div className="flex h-full flex-col justify-between">
       <Title>Валюта перевода</Title>
+      {error || data.length === 0 ? (
+        <div className="mt-[84px] flex h-full flex-col items-center justify-center first-line:flex">
+          <div className="text-center text-7xl font-semibold leading-tight tracking-tight">
+            💰
+          </div>
+          <div className="text-center">Нет доступных валют</div>
+        </div>
+      ) : null}
       <div className="mt-[84px] h-auto">
         <List
           items={items}

@@ -26,9 +26,13 @@ const transferRulesQuery = createJsonQuery({
 
 concurrency(transferRulesQuery, { strategy: 'TAKE_LATEST' });
 
-export function init() {}
+export function init() {
+  /* empty */
+}
 
 export const useTransferRulesQuery = () => useUnit(transferRulesQuery);
+
+export const useTransferPending = () => useUnit(transferRulesQuery.$pending);
 
 export const events = {
   startTransferRulesQuery: transferRulesQuery.start,
@@ -36,4 +40,5 @@ export const events = {
 
 export const selectors = {
   useTransferRulesQuery,
+  useTransferPending,
 };

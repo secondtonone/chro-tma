@@ -54,7 +54,7 @@ export function SuggestionCard({
 
       <button
         type="button"
-        className="w-full rounded-lg bg-[#009be0] px-6 py-2 text-center text-sm font-semibold leading-[17.92px] text-white"
+        className="w-full rounded-lg bg-[#009be0] px-6 py-2 text-center text-sm font-semibold leading-[17.92px] text-white hover:bg-[#009be0]/80"
         onClick={onClick}
       >
         Перейти

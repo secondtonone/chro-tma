@@ -16,7 +16,7 @@ export const Input: React.FC<IInputProps> = ({
       </label>
       <input
         type="text"
-        className="w-full rounded-2xl border-none bg-zinc-100 p-4 text-base font-medium leading-[32px] text-[#101112] dark:bg-zinc-900 dark:text-white"
+        className="w-full rounded-2xl border-none bg-zinc-100 p-4 text-base font-medium leading-[32px] text-[#101112] hover:bg-zinc-200 dark:bg-zinc-900 dark:text-white"
         {...rest}
       />
     </div>

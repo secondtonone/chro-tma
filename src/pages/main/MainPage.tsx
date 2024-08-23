@@ -1,7 +1,6 @@
 import { CSSProperties, useEffect } from 'react';
 
 import { selectors as flowSelectors } from '@/entities/flow';
-import { useTheme } from '@/shared';
 import { CountryFrom, CountryTo, Currency, Form, Suggestions } from '@/widgets';
 import {
   a,
@@ -60,8 +59,6 @@ export default function MainPage() {
   useEffect(() => {
     miniApp.ready();
   }, [miniApp]);
-
-  useTheme();
 
   return (
     <div className="flex items-center justify-center">
