@@ -5,11 +5,11 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "npm type-check && vite build",
+    "build": "npm run type-check && vite build",
     "dev": "vite",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext .ts --ext .tsx",
-    "lint:fix": "npm lint --fix",
+    "lint:fix": "npm run lint --fix",
     "format": "prettier --config ./.prettierrc -w '**/*.{tsx,ts}'",
     "serve": "vite preview"
   },
