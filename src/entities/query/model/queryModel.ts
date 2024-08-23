@@ -35,7 +35,7 @@ export const $query = createStore<IQuery>({
   currency: {
     abbreviation: '',
   },
-  optional_amount: '0',
+  optional_amount: '1 000',
 } as IQuery);
 
 export const $queryIds = createStore<IQueryIds>({
