@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_URL: ${API_URL}
+        IS_BROWSER: ${IS_BROWSER}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      API_URL: ${API_URL}
+      IS_BROWSER: ${IS_BROWSER}
+    restart: always

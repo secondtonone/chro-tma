@@ -52,3 +52,9 @@ Create `.env` file at the root of project
    ```bash
    npm run format
    ```
+
+## Deployment
+   Example for local:
+   ```bash
+   API_URL=http://0.0.0.0:8000 docker compose up --build
+   ```
