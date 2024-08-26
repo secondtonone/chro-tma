@@ -36,6 +36,7 @@ export const transferRules: TransferRule = {
         id: '1fd57473-4192-4a29-9390-e9cb66c6dd96',
         name: 'Korona',
         url: 'https://korona.com',
+        logo: 'pic.png',
       },
       transfer_method: 'перевод',
       min_transfer_time: {
@@ -76,6 +77,7 @@ export const transferRules: TransferRule = {
         id: '1fd57473-4192-4a29-9390-e9cb66c6dd96',
         name: 'Korona',
         url: 'https://korona.com',
+        logo: 'pic.png',
       },
       transfer_method: 'перевод',
       min_transfer_time: {
@@ -116,6 +118,7 @@ export const transferRules: TransferRule = {
         id: '1fd57473-4192-4a29-9390-e9cb66c6dd96',
         name: 'Korona',
         url: 'https://korona.com',
+        logo: 'pic.png',
       },
       transfer_method: 'перевод',
       min_transfer_time: {
@@ -156,6 +159,7 @@ export const transferRules: TransferRule = {
         id: '1fd57473-4192-4a29-9390-e9cb66c6dd96',
         name: 'Korona',
         url: 'https://korona.com',
+        logo: 'pic.png',
       },
       transfer_method: 'перевод',
       min_transfer_time: {
@@ -196,6 +200,7 @@ export const transferRules: TransferRule = {
         id: '1fd57473-4192-4a29-9390-e9cb66c6dd96',
         name: 'Korona',
         url: 'https://korona.com',
+        logo: 'korona.png',
       },
       transfer_method: 'перевод',
       min_transfer_time: {

@@ -9,5 +9,6 @@ export function useHandleBack(handler: () => void) {
     backButton.show();
     backButton.on('click', handler);
     return () => backButton.hide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

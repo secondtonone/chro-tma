@@ -19,7 +19,13 @@ export function SuggestionCard({
     <div className="flex flex-col items-start justify-center gap-3 rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-900">
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-3xl bg-[#e0dfe2]">
-          <img className="h-8 w-8" src={img} />
+          {img ? (
+            <img className="h-8 w-8" src={img} />
+          ) : (
+            <div className="flex h-8 w-8 items-center justify-center bg-[#009BE0] text-white">
+              ?
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col items-start justify-center gap-0.5">

@@ -3,17 +3,19 @@ import { createGate, useGate, useUnit } from 'effector-react';
 import { once } from 'patronum/once';
 
 import { baseUrl } from '@/shared';
-import { concurrency, createJsonQuery } from '@farfetched/core';
+import { concurrency, createJsonQuery, declareParams } from '@farfetched/core';
 
-import { CurrenciesContract } from './contracts';
+import { type CurrenciesParams, CurrenciesContract } from './contracts';
 
-export const CurrencyPageGate = createGate();
+export const CurrencyPageGate = createGate<Partial<CurrenciesParams>>();
 
 export const currenciesQuery = createJsonQuery({
   initialData: [],
+  params: declareParams<Partial<CurrenciesParams>>(),
   request: {
     method: 'GET',
     url: baseUrl('/api/v1/global-objects/currencies'),
+    query: (params) => params,
   },
   response: {
     contract: CurrenciesContract,

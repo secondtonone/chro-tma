@@ -6,6 +6,8 @@ import {
 } from '@/entities/query';
 import { List, Title, useHandleBack } from '@/shared';
 
+import { currencies } from './currencies';
+
 export default function Currency() {
   const { data, error } = currencySelectors.useCurrenciesQuery();
   const items = data.map(({ id, name, abbreviation }) => ({
@@ -20,7 +22,13 @@ export default function Currency() {
         </div>
       </div>
     ),
-    icon: <img src={`./icons/${abbreviation.toLowerCase()}.svg`} />,
+    icon: currencies.includes(abbreviation) ? (
+      <img src={`./icons/${abbreviation.toLowerCase()}.svg`} />
+    ) : (
+      <div className="flex h-8 w-8 items-center justify-center bg-[#009BE0] text-white">
+        ?
+      </div>
+    ),
   }));
 
   const { optional_from_currency_id: currency } = querySelectors.useQueryIds();

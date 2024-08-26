@@ -7,4 +7,7 @@ export interface IQuery {
   optional_amount: string;
 }
 
-export type IQueryIds = Omit<TransferRuleParams, 'optional_amount'>;
+export type IQueryIds = Omit<
+  TransferRuleParams,
+  'optional_amount' | 'order' | 'order_desc'
+>;

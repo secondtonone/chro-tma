@@ -1,3 +1,3 @@
-import type { Currencies, Currency } from './model/contracts';
+import type { Currencies, CurrenciesParams, Currency } from './model/contracts';
 
-export { Currencies, Currency };
+export { Currencies, CurrenciesParams, Currency };

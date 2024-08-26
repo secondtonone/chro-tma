@@ -1,6 +1,7 @@
 import {
   type UnContract,
   arr,
+  bool,
   nothing,
   num,
   obj,
@@ -47,6 +48,7 @@ export const TransferRuleContract = obj({
         id: str,
         name: str,
         url: str,
+        logo: or(str, nothing),
       }),
       transfer_method: str,
       min_transfer_time: obj({
@@ -89,6 +91,8 @@ export const TransferRuleParamsContract = obj({
   receive_country_id: str,
   optional_from_currency_id: str,
   optional_amount: num,
+  order: str,
+  order_desc: bool,
 });
 
 export const TransferRulesContract = arr(TransferRuleContract);

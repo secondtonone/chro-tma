@@ -1,3 +1,4 @@
+import config from '@/config';
 import { events as flowEvents } from '@/entities/flow';
 import { selectors as rulesSelectors } from '@/entities/transfer-rules';
 import { getTimeDescription, SuggestionCard, useHandleBack } from '@/shared';
@@ -35,7 +36,7 @@ export default function Suggestions() {
         {rules.map(
           ({
             id,
-            provider: { name, url },
+            provider: { name, url, logo },
             conversion_path: [currency],
             original_amount,
             required_documents,
@@ -49,7 +50,7 @@ export default function Suggestions() {
               description={`${transfer_method} ${required_documents.length > 0 ? '(потребуются документы)' : '(документы не потребуются)'}`}
               period={getTimeDescription(max_transfer_time)}
               total={`${(original_amount || 0) + (transfer_fee || 0)} ${currency}`}
-              img="./icons/korona.png"
+              img={logo ? `${config.apiUrl}${logo}` : ''}
               onClick={() => {
                 tgUtils.openLink(url, { tryBrowser: true });
               }}
