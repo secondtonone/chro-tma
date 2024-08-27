@@ -52,6 +52,7 @@ export default function Suggestions() {
               total={`${(original_amount || 0) + (transfer_fee || 0)} ${currency}`}
               img={logo ? `${config.apiUrl}${logo}` : ''}
               onClick={() => {
+                if (config.isBrowser) window.location.href = url;
                 tgUtils.openLink(url, { tryBrowser: true });
               }}
             />
