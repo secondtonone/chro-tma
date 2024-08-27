@@ -20,8 +20,16 @@ import { filterObject, formatToAmount, formatToNumber } from '@/shared';
 
 import type { IQuery, IQueryIds } from '../types';
 
+import { QueryParams } from './contracts';
+
 export const QueryGate = createGate();
 export const changeAmount = createEvent<string>();
+export const showErrors = createEvent();
+export const hideErrors = createEvent();
+
+export const isErrorVisible = createStore(false)
+  .on(showErrors, () => true)
+  .on(hideErrors, () => false);
 
 export const $query = createStore<IQuery>({
   countryFrom: {
@@ -48,6 +56,17 @@ export const $params = combine($query, $queryIds, (query, queryIds) => ({
   ...queryIds,
   optional_amount: formatToNumber(query.optional_amount),
 }));
+
+export const $isParamsValid = $params.map((params) =>
+  QueryParams.isData(params)
+);
+
+export const $validationErrors = $params.map((params) =>
+  QueryParams.getErrorMessages(params)
+    .map((error) => error.split(': ')[1])
+    .join('')
+    .trim()
+);
 
 $params.watch((params) => console.log(params));
 
@@ -133,17 +152,25 @@ export const init = (
 };
 
 const useQuery = () => useUnit($query);
+const useIsParamsValid = () => useUnit($isParamsValid);
+const useValidationErrors = () => useUnit($validationErrors);
+const useIsErrorVisible = () => useUnit(isErrorVisible);
 const useQueryIds = () => useUnit($queryIds);
 
 export const events = {
   ...queryApi,
   handleChangeAmount,
   submitData,
+  showErrors,
+  hideErrors,
 };
 
 export const selectors = {
   useQuery,
   useQueryIds,
+  useIsParamsValid,
+  useValidationErrors,
+  useIsErrorVisible,
 };
 
 const useQueryGate = () => useGate(QueryGate);

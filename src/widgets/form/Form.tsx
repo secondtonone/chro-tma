@@ -17,6 +17,13 @@ export default function Form() {
     currency,
   } = querySelectors.useQuery();
 
+  const isParamsValid = querySelectors.useIsParamsValid();
+  const validationErrors = querySelectors.useValidationErrors();
+
+  const useIsErrorVisible = querySelectors.useIsErrorVisible();
+
+  console.log(isParamsValid, validationErrors);
+
   const isPending = rulesSelectors.useTransferPending();
 
   countryGates.useCountryGate();
@@ -27,8 +34,13 @@ export default function Form() {
       className="flex h-full flex-col justify-between"
       onSubmit={(e) => {
         e.preventDefault();
-        queryEvents.submitData();
-        flowEvents.setStage('suggestions');
+        if (isParamsValid) {
+          queryEvents.hideErrors();
+          queryEvents.submitData();
+          flowEvents.setStage('suggestions');
+        } else {
+          queryEvents.showErrors();
+        }
       }}
     >
       <div className="flex w-full flex-col items-center justify-start gap-10 p-6">
@@ -58,6 +70,8 @@ export default function Form() {
             className="w-full"
             placeholder="Выберите страну"
             readOnly
+            required
+            name="countryFrom"
             onClick={() => flowEvents.setStage('countryFrom')}
           />
           <Select
@@ -73,6 +87,7 @@ export default function Form() {
             className="w-full"
             placeholder="Выберите страну"
             readOnly
+            name="countryTo"
             onClick={() => flowEvents.setStage('countryTo')}
           />
           <div className="grid w-full grid-cols-12 gap-2">
@@ -83,6 +98,7 @@ export default function Form() {
                 className="w-fit"
                 onChange={queryEvents.handleChangeAmount}
                 pattern="^[0-9.\s]*$"
+                name="amount"
               />
             </div>
             <div className="col-span-4">
@@ -92,11 +108,15 @@ export default function Form() {
                 readOnly
                 className="w-fit"
                 placeholder="Любая"
+                name="currency"
                 onClick={() => flowEvents.setStage('currency')}
               />
             </div>
           </div>
         </div>
+        {useIsErrorVisible ? (
+          <div className="text-red-500">{validationErrors}</div>
+        ) : null}
       </div>
 
       <div className="h-fit w-full border-t border-[#3c3c43]/20 bg-white px-2 py-4 backdrop-blur-[180px] dark:border-white/20 dark:bg-black">
