@@ -18,11 +18,9 @@ export default function Form() {
   } = querySelectors.useQuery();
 
   const isParamsValid = querySelectors.useIsParamsValid();
-  const validationErrors = querySelectors.useValidationErrors();
+  const validationErrors = querySelectors.useValidationErrorsFormat();
 
   const useIsErrorVisible = querySelectors.useIsErrorVisible();
-
-  console.log(isParamsValid, validationErrors);
 
   const isPending = rulesSelectors.useTransferPending();
 

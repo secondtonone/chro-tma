@@ -63,12 +63,13 @@ export const $isParamsValid = $params.map((params) =>
 
 export const $validationErrors = $params.map((params) =>
   QueryParams.getErrorMessages(params)
-    .map((error) => error.split(': ')[1])
-    .join('')
-    .trim()
+    .map((error) => ({ [error.split(': ')[0]]: error.split(': ')[1] }))
+    .reduce((acc, error) => ({ ...acc, ...error }), {})
 );
 
-$params.watch((params) => console.log(params));
+export const $validationErrorsFormat = $validationErrors.map((errors) =>
+  Object.values(errors).join(' ')
+);
 
 export const submitData = createEvent();
 
@@ -153,7 +154,7 @@ export const init = (
 
 const useQuery = () => useUnit($query);
 const useIsParamsValid = () => useUnit($isParamsValid);
-const useValidationErrors = () => useUnit($validationErrors);
+const useValidationErrorsFormat = () => useUnit($validationErrorsFormat);
 const useIsErrorVisible = () => useUnit(isErrorVisible);
 const useQueryIds = () => useUnit($queryIds);
 
@@ -169,7 +170,7 @@ export const selectors = {
   useQuery,
   useQueryIds,
   useIsParamsValid,
-  useValidationErrors,
+  useValidationErrorsFormat,
   useIsErrorVisible,
 };
 
