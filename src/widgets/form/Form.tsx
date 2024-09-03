@@ -6,8 +6,10 @@ import {
   selectors as querySelectors,
 } from '@/entities/query';
 import { selectors as rulesSelectors } from '@/entities/transfer-rules';
+import { gates as userLogGates } from '@/entities/user-log';
 import { Button, Input, Select } from '@/shared';
 import FlagIcon from '@/shared/ui/FlagIcon';
+import { useInitData } from '@telegram-apps/sdk-react';
 
 export default function Form() {
   const {
@@ -26,6 +28,11 @@ export default function Form() {
 
   countryGates.useCountryGate();
   currencyGates.useCurrencyGate();
+
+  const initData = useInitData();
+  const userId = initData?.user?.id || '';
+
+  userLogGates.useUserLogPageGate(userId.toString());
 
   return (
     <form

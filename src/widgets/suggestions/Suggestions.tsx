@@ -1,8 +1,9 @@
 import config from '@/config';
 import { events as flowEvents } from '@/entities/flow';
+import { events as queryEvents } from '@/entities/query';
 import { selectors as rulesSelectors } from '@/entities/transfer-rules';
 import { getTimeDescription, SuggestionCard, useHandleBack } from '@/shared';
-import { useUtils } from '@telegram-apps/sdk-react';
+import { useInitData, useUtils } from '@telegram-apps/sdk-react';
 
 export default function Suggestions() {
   const {
@@ -11,6 +12,9 @@ export default function Suggestions() {
   } = rulesSelectors.useTransferRulesQuery();
 
   useHandleBack(() => flowEvents.setStage('form'));
+
+  const initData = useInitData();
+  const userId = initData?.user?.id || '';
 
   const tgUtils = useUtils();
 
@@ -52,6 +56,11 @@ export default function Suggestions() {
               total={`${(original_amount || 0) + (transfer_fee || 0)} ${currency}`}
               img={logo ? `${config.apiUrl}${logo}` : ''}
               onClick={() => {
+                queryEvents.followLink({
+                  tg_user: userId.toString(),
+                  url_log: url,
+                });
+
                 if (config.isBrowser) window.location.href = url;
                 tgUtils.openLink(url, { tryBrowser: true });
               }}

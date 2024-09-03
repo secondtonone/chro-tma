@@ -15,6 +15,7 @@ import type {
   Currencies,
   Currency,
   TransferRuleParams,
+  UserLogParams,
 } from '@/entities/x';
 import { filterObject, formatToAmount, formatToNumber } from '@/shared';
 
@@ -72,6 +73,8 @@ export const $validationErrorsFormat = $validationErrors.map((errors) =>
 );
 
 export const submitData = createEvent();
+export const followLink =
+  createEvent<Pick<UserLogParams, 'tg_user' | 'url_log'>>();
 
 export const queryApi = createApi($queryIds, {
   changeCountryFrom: (query, send_country_id: Country['id']) => ({
@@ -92,11 +95,17 @@ const handleChangeAmount = changeAmount.prepend<{
   target: HTMLInputElement | HTMLTextAreaElement;
 }>((event) => formatToAmount(event.target.value));
 
-export const init = (
-  $countries: Store<Countries>,
-  $currencies: Store<Currencies>,
-  sendData: EventCallable<Partial<TransferRuleParams>>
-) => {
+export const init = ({
+  $countries,
+  $currencies,
+  sendData,
+  userLog,
+}: {
+  $countries: Store<Countries>;
+  $currencies: Store<Currencies>;
+  sendData: EventCallable<Partial<TransferRuleParams>>;
+  userLog: EventCallable<Partial<UserLogParams>>;
+}) => {
   $query.reset(QueryGate.open);
 
   sample({
@@ -105,6 +114,25 @@ export const init = (
     fn: (params) =>
       filterObject(params, (value) => !(value === '' || value === 0)),
     target: sendData,
+  });
+
+  sample({
+    clock: followLink,
+    source: $query,
+    fn: (query, args) => {
+      const filtered = filterObject(
+        {
+          amount_log: query.optional_amount.toString(),
+          currency_log: query.currency.abbreviation,
+          send_country_log: query.countryFrom.abbreviation,
+          receive_country_log: query.countryTo.abbreviation,
+          ...args,
+        },
+        (value) => !(value === '' || value === 0)
+      );
+      return filtered;
+    },
+    target: userLog,
   });
 
   sample({
@@ -164,6 +192,7 @@ export const events = {
   submitData,
   showErrors,
   hideErrors,
+  followLink,
 };
 
 export const selectors = {
