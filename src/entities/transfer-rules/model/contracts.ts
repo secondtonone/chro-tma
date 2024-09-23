@@ -78,8 +78,8 @@ export const TransferRuleContract = obj({
       amount_received: or(num, nothing),
       transfer_fee: or(num, nothing),
       transfer_fee_percentage: num,
-      min_transfer_amount: num,
-      max_transfer_amount: num,
+      min_transfer_amount: or(num, nothing),
+      max_transfer_amount: or(num, nothing),
       exchange_rate: or(num, nothing),
       conversion_path: arr(str),
     })

@@ -1,8 +1,14 @@
 import config from '@/config';
 import { events as flowEvents } from '@/entities/flow';
-import { events as queryEvents } from '@/entities/query';
+import { selectors } from '@/entities/query';
 import { selectors as rulesSelectors } from '@/entities/transfer-rules';
-import { getTimeDescription, SuggestionCard, useHandleBack } from '@/shared';
+import { sendUserLog } from '@/entities/user-log';
+import {
+  filterObject,
+  getTimeDescription,
+  SuggestionCard,
+  useHandleBack,
+} from '@/shared';
 import { useInitData, useUtils } from '@telegram-apps/sdk-react';
 
 export default function Suggestions() {
@@ -10,6 +16,8 @@ export default function Suggestions() {
     data: { rules },
     error,
   } = rulesSelectors.useTransferRulesQuery();
+
+  const query = selectors.useQuery();
 
   useHandleBack(() => flowEvents.setStage('form'));
 
@@ -55,11 +63,20 @@ export default function Suggestions() {
               period={getTimeDescription(max_transfer_time)}
               total={`${(original_amount || 0) + (transfer_fee || 0)} ${currency}`}
               img={logo ? `${config.apiUrl}${logo}` : ''}
-              onClick={() => {
-                queryEvents.followLink({
-                  tg_user: userId.toString(),
-                  url_log: url,
-                });
+              onClick={async () => {
+                await sendUserLog(
+                  filterObject(
+                    {
+                      amount_log: query.optional_amount.toString(),
+                      currency_log: query.currency.abbreviation,
+                      send_country_log: query.countryFrom.abbreviation,
+                      receive_country_log: query.countryTo.abbreviation,
+                      tg_user: userId.toString(),
+                      url_log: url,
+                    },
+                    (value) => !(value === '' || value === 0)
+                  )
+                );
 
                 if (config.isBrowser) window.location.href = url;
                 tgUtils.openLink(url, { tryBrowser: true });

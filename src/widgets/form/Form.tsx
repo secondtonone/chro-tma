@@ -78,6 +78,7 @@ export default function Form() {
             required
             name="countryFrom"
             onClick={() => flowEvents.setStage('countryFrom')}
+            disabled
           />
           <Select
             prefixEl={

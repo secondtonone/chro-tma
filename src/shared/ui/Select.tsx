@@ -30,10 +30,10 @@ export const Select: React.FC<ISelectProps> = ({
         <input
           type="text"
           id={rest.name}
-          className={`${prefixEl ? 'pl-[56px]' : ''} peer w-full rounded-2xl border-none bg-zinc-100 p-4 pr-[46px] text-base font-medium leading-[32px] text-[#101112] hover:bg-zinc-200 dark:bg-zinc-900 dark:text-white`}
+          className={`${prefixEl ? 'pl-[56px]' : ''} peer w-full rounded-2xl border-none bg-zinc-100 p-4 pr-[46px] text-base font-medium leading-[32px] text-[#101112] disabled:hover:bg-zinc-100 dark:disabled:hover:bg-zinc-900 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-white`}
           {...rest}
         />
-        <ChevronIcon className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#545458] peer-focus:rotate-180 dark:text-white" />
+        <ChevronIcon className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#545458] peer-focus:rotate-180 dark:text-white peer-disabled:opacity-50" />
       </div>
     </div>
   );

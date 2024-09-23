@@ -23,6 +23,9 @@ import type { IQuery, IQueryIds } from '../types';
 
 import { QueryParams } from './contracts';
 
+const DEFAULT_COUNTRY_CODE = 'RUS';
+const DEFAULT_CURRENCY_CODE = 'RUB';
+
 export const QueryGate = createGate();
 export const changeAmount = createEvent<string>();
 export const showErrors = createEvent();
@@ -149,6 +152,18 @@ export const init = ({
   });
 
   sample({
+    clock: $countries,
+    source: {
+      countries: $countries,
+      query: $query,
+    },
+    fn: ({ countries }) =>
+      countries.find((country) => DEFAULT_COUNTRY_CODE === country.abbreviation)
+        ?.id as Country['id'],
+    target: queryApi.changeCountryFrom,
+  });
+
+  sample({
     clock: queryApi.changeCountryTo,
     source: {
       countries: $countries,
@@ -172,6 +187,19 @@ export const init = ({
       currency: currencies.find((currency) => id === currency.id) as Currency,
     }),
     target: $query,
+  });
+
+  sample({
+    clock: $currencies,
+    source: {
+      currencies: $currencies,
+      query: $query,
+    },
+    fn: ({ currencies }) =>
+      currencies.find(
+        (currency) => DEFAULT_CURRENCY_CODE === currency.abbreviation
+      )?.id as Currency['id'],
+    target: queryApi.changeCurrency,
   });
 
   $query.on(changeAmount, (query, optional_amount) => ({

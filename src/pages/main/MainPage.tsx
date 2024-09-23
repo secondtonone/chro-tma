@@ -47,6 +47,7 @@ export default function MainPage() {
     from: { translateY: -200, opacity: 0 },
     enter: { translateY: 0, opacity: 1 },
     leave: { translateY: 100, opacity: 0 },
+    config: { duration: 100 },
   });
 
   const miniApp = useMiniApp();
