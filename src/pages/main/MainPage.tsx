@@ -8,7 +8,7 @@ import {
   useSpringRef,
   useTransition,
 } from '@react-spring/web';
-import { useMiniApp } from '@telegram-apps/sdk-react';
+import { miniApp } from '@telegram-apps/sdk-react';
 
 const stages = {
   form: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
@@ -50,8 +50,6 @@ export default function MainPage() {
     config: { duration: 100 },
   });
 
-  const miniApp = useMiniApp();
-
   useEffect(() => {
     transRef.start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +57,7 @@ export default function MainPage() {
 
   useEffect(() => {
     miniApp.ready();
-  }, [miniApp]);
+  }, []);
 
   return (
     <div className="flex items-center justify-center">

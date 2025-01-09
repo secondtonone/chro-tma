@@ -9,7 +9,7 @@ import {
   SuggestionCard,
   useHandleBack,
 } from '@/shared';
-import { useInitData, useUtils } from '@telegram-apps/sdk-react';
+import { initDataUser, openLink } from '@telegram-apps/sdk-react';
 
 export default function Suggestions() {
   const {
@@ -21,10 +21,8 @@ export default function Suggestions() {
 
   useHandleBack(() => flowEvents.setStage('form'));
 
-  const initData = useInitData();
-  const userId = initData?.user?.id || '';
-
-  const tgUtils = useUtils();
+  const initData = initDataUser();
+  const userId = initData?.id || '';
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -79,7 +77,7 @@ export default function Suggestions() {
                 );
 
                 if (config.isBrowser) window.location.href = url;
-                tgUtils.openLink(url, { tryBrowser: true });
+                openLink(url, { tryBrowser: 'chrome' });
               }}
             />
           )

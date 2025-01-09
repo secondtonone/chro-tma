@@ -4,24 +4,19 @@ import { Outlet } from 'react-router-dom';
 import config from '@/config';
 /* 
 import { ThemeContext } from '@/shared'; */
-import {
-  /* useMiniApp, */
-  useSwipeBehaviorRaw,
-  useViewport,
-} from '@telegram-apps/sdk-react';
+import { swipeBehavior, viewport as vp } from '@telegram-apps/sdk-react';
 
 export default function RootLayout() {
   /*   const { mainColor } = useContext(ThemeContext);
   const miniApp = useMiniApp(); */
-  const vp = useViewport();
-  const { result: swipeBehavior } = useSwipeBehaviorRaw();
 
   useEffect(() => {
-    if (!config.isBrowser) {
+    if (!config.isBrowser)
+    {
       vp?.expand();
-      swipeBehavior?.disableVerticalSwipe();
+      if (swipeBehavior.isSupported()) swipeBehavior.disableVertical();
     }
-  }, [swipeBehavior, vp]);
+  }, []);
 
   /* useEffect(() => {
     // @ts-expect-error

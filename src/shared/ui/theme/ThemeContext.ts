@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { MiniAppHeaderColor } from '@telegram-apps/sdk-react';
+import type { MiniAppHeaderColor } from '@telegram-apps/sdk-react';
 
 export interface IThemeContext {
   mainColor: string | MiniAppHeaderColor;

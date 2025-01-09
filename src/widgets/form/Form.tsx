@@ -9,7 +9,7 @@ import { selectors as rulesSelectors } from '@/entities/transfer-rules';
 import { gates as userLogGates } from '@/entities/user-log';
 import { Button, Input, Select } from '@/shared';
 import FlagIcon from '@/shared/ui/FlagIcon';
-import { useInitData } from '@telegram-apps/sdk-react';
+import { initDataUser } from '@telegram-apps/sdk-react';
 
 export default function Form() {
   const {
@@ -29,8 +29,8 @@ export default function Form() {
   countryGates.useCountryGate();
   currencyGates.useCurrencyGate();
 
-  const initData = useInitData();
-  const userId = initData?.user?.id || '';
+  const initData = initDataUser();
+  const userId = initData?.id || '';
 
   userLogGates.useUserLogPageGate(userId.toString());
 
@@ -39,11 +39,13 @@ export default function Form() {
       className="flex h-full flex-col justify-between"
       onSubmit={(e) => {
         e.preventDefault();
-        if (isParamsValid) {
+        if (isParamsValid)
+        {
           queryEvents.hideErrors();
           queryEvents.submitData();
           flowEvents.setStage('suggestions');
-        } else {
+        } else
+        {
           queryEvents.showErrors();
         }
       }}
