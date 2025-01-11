@@ -4,9 +4,11 @@ import { backButton } from '@telegram-apps/sdk-react';
 
 export function useHandleBack(handler: () => void) {
   useEffect(() => {
-    backButton.show();
-    backButton.onClick(handler);
-    return () => backButton.hide();
+    if (backButton.isSupported()) {
+      backButton.show();
+      backButton.onClick(handler);
+      return () => backButton.hide();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
