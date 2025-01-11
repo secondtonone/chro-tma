@@ -12,7 +12,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     define: {
-      'process.env.IS_BROWSER': env.IS_BROWSER,
       'process.env.API_URL': JSON.stringify(env.API_URL),
     },
     plugins: [

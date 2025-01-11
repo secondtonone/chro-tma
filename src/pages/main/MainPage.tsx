@@ -8,7 +8,7 @@ import {
   useSpringRef,
   useTransition,
 } from '@react-spring/web';
-import { miniApp } from '@telegram-apps/sdk-react';
+import { isTMA, miniApp } from '@telegram-apps/sdk-react';
 
 const stages = {
   form: ({ style }: AnimatedProps<{ style: CSSProperties }>) => (
@@ -56,7 +56,7 @@ export default function MainPage() {
   }, [stage]);
 
   useEffect(() => {
-    miniApp.ready();
+    if (isTMA('simple')) miniApp.ready();
   }, []);
 
   return (

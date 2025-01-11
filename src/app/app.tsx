@@ -7,6 +7,7 @@ import {
   backButton,
   closingBehavior,
   init as initSdk,
+  isTMA,
   miniApp,
   swipeBehavior,
   themeParams,
@@ -22,25 +23,28 @@ $debug.set(import.meta.env.DEV);
 
 init();
 
-initSdk();
+if (isTMA('simple'))
+{
+  initSdk();
 
-userData.restore();
-viewport
-  .mount()
-  .catch((e) => {
-    console.error('Something went wrong mounting the viewport', e);
-  })
-  .then(() => {
-    viewport.bindCssVars();
-  });
-miniApp.mount();
-backButton.mount();
-if (swipeBehavior.isSupported()) swipeBehavior.mount();
-closingBehavior.mount();
-themeParams.mount();
+  userData.restore();
+  viewport
+    .mount()
+    .catch((e) => {
+      console.error('Something went wrong mounting the viewport', e);
+    })
+    .then(() => {
+      viewport.bindCssVars();
+    });
+  miniApp.mount();
+  backButton.mount();
+  if (swipeBehavior.isSupported()) swipeBehavior.mount();
+  closingBehavior.mount();
+  themeParams.mount();
 
-miniApp.bindCssVars();
-themeParams.bindCssVars();
+  miniApp.bindCssVars();
+  themeParams.bindCssVars();
+}
 
 const App = (): JSX.Element => {
   return (

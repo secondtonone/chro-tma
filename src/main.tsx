@@ -1,13 +1,11 @@
 import { createRoot } from 'react-dom/client';
 
 import App from '@/app/app';
-import config from '@/config';
-import { mockTelegramEnv, parseInitData } from '@telegram-apps/sdk-react';
 
+// import { mockTelegramEnv, parseInitData } from '@telegram-apps/sdk-react';
 import '@/app/global.css';
 
-if (config.isBrowser) {
-  const initDataRaw = new URLSearchParams([
+/* const initDataRaw = new URLSearchParams([
     [
       'user',
       JSON.stringify({
@@ -50,8 +48,7 @@ if (config.isBrowser) {
     initDataRaw,
     version: '7.6',
     platform: 'tdesktop',
-  });
-}
+  }); */
 
 const container = document.getElementById('app');
 const root = createRoot(container as HTMLElement);

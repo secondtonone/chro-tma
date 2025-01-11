@@ -9,7 +9,6 @@ This project is built using Vite and TypeScript. Below are the available scripts
 | Variable   | Example Value           | Description                                  |
 | ---------- | ----------------------- | -------------------------------------------- |
 | `API_URL`  | `http://0.0.0.0:8000`   | **Required**. The base URL for the API.                    |
-| `IS_BROWSER` | `true`                | *Optional*. Indicates if the code is running in a browser environment. |
 
 2. Install dependencies:
    ```bash

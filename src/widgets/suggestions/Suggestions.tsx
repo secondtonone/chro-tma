@@ -9,7 +9,7 @@ import {
   SuggestionCard,
   useHandleBack,
 } from '@/shared';
-import { initDataUser, openLink } from '@telegram-apps/sdk-react';
+import { initDataUser, isTMA, openLink } from '@telegram-apps/sdk-react';
 
 export default function Suggestions() {
   const {
@@ -76,8 +76,13 @@ export default function Suggestions() {
                   )
                 );
 
-                if (config.isBrowser) window.location.href = url;
-                openLink(url, { tryBrowser: 'chrome' });
+                if (isTMA('simple'))
+                {
+                  openLink(url, { tryBrowser: 'chrome' });
+                } else
+                {
+                  window.location.href = url;
+                }
               }}
             />
           )
